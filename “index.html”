@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayo Mengenal Puisi Rakyat! - Bahasa Indonesia Kelas 7</title>
+    <style>
+        /* ==========================================================================
+           1. DESAIN & SKEMA WARNA (CSS VARIABLES & BASE STYLES)
+           ========================================================================== */
+        :root {
+            --primary-color: #4E54C8;
+            --primary-dark: #3F4499;
+            --secondary-color: #FF6B6B;
+            --accent-color: #4ECDC4;
+            --yellow-accent: #FFE66D;
+            --bg-color: #F7F9FC;
+            --card-bg: #FFFFFF;
+            --text-color: #2D3748;
+            --text-muted: #718096;
+            --success-color: #48BB78;
+            --danger-color: #F56565;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .audio-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .audio-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background-color: #E2E8F0;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        /* Card System */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid #EDF2F7;
+        }
+
+        /* Hidden Class for View Management */
+        .view-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .view-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #FF5252;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* Grid Navigation Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid #EDF2F7;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .menu-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .menu-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        /* Content Styling */
+        .puisi-box {
+            background-color: #FFF9E6;
+            border-left: 5px solid var(--yellow-accent);
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-style: italic;
+            border-radius: 0 10px 10px 0;
+            line-height: 1.8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #E2E8F0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F1F5F9;
+            color: var(--primary-color);
+        }
+
+        /* Options for Interactives */
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .option-btn {
+            background-color: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.98rem;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover {
+            background-color: #EDF2F7;
+            border-color: #CBD5E1;
+        }
+
+        .option-btn.correct {
+            background-color: #DEF7EC;
+            border-color: var(--success-color);
+            color: #03543F;
+        }
+
+        .option-btn.wrong {
+            background-color: #FDE8E8;
+            border-color: var(--danger-color);
+            color: #9B1C1C;
+        }
+
+        .feedback-box {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .feedback-box.correct {
+            background-color: #DEF7EC;
+            color: #03543F;
+            border: 1px solid var(--success-color);
+        }
+
+        .feedback-box.wrong {
+            background-color: #FDE8E8;
+            color: #9B1C1C;
+            border: 1px solid var(--danger-color);
+        }
+
+        /* Quiz Timer */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #EDF2F7;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .timer {
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Score Badge */
+        .score-badge {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            color: white;
+            background-color: var(--primary-color);
+        }
+
+        /* Print Media Query */
+        @media print {
+            body { background: white; color: black; }
+            header, .btn, .progress-container, .audio-toggle { display: none !important; }
+            .card { box-shadow: none; border: none; padding: 0; }
+            .view-section { display: none !important; }
+            #view-hasil { display: block !important; opacity: 1 !important; }
+        }
+
+        /* Responsive Mobile Layout */
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .card { padding: 15px; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .btn { width: 100%; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-title">
+            <span>📖</span> Puisi Rakyat Interaktif
+        </div>
+        <button class="audio-toggle" onclick="toggleAudio()">🔊 Suara: <span id="audio-status">ON</span></button>
+    </header>
+
+    <div class="container">
+        <!-- Progress Bar Status -->
+        <div class="progress-container">
+            <div class="progress-bar" id="main-progress"></div>
+        </div>
+
+        <!-- ==========================================================================
+           2. HALAMAN PEMBUKA & IDENTITAS PESERTA DIDIK
+           ========================================================================== -->
+        <section id="view-pembuka" class="view-section active">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">📜</div>
+                <h1 style="color: var(--primary-color); margin-bottom: 10px;">AYO MENGENAL PUISI RAKYAT!</h1>
+                <h3 style="color: var(--text-muted); margin-bottom: 20px;">Mengidentifikasi Unsur Puisi Rakyat — Bahasa Indonesia Kelas 7 SMP</h3>
+                <p style="margin-bottom: 25px;">Mari belajar mengenal warisan sastra Nusantara berupa Pantun, Syair, dan Gurindam secara mudah dan menyenangkan!</p>
+                <button class="btn btn-primary" onclick="showView('view-identitas')">🚀 MULAI BELAJAR</button>
+            </div>
+        </section>
+
+        <section id="view-identitas" class="view-section">
+            <div class="card">
+                <h2>📝 Identitas Peserta Didik</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Silakan isi data dirimu sebelum memulai petualangan belajar.</p>
+                <form id="form-identitas" onsubmit="simpanIdentitas(event)">
+                    <div class="form-group">
+                        <label for="nama-siswa">Nama Lengkap:</label>
+                        <input type="text" id="nama-siswa" class="form-control" placeholder="Masukkan nama lengkapmu..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kelas-siswa">Pilihan Kelas:</label>
+                        <select id="kelas-siswa" class="form-control" required>
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="Kelas 7.1">Kelas 7.1</option>
+                            <option value="Kelas 7.2">Kelas 7.2</option>
+                            <option value="Kelas 7.3">Kelas 7.3</option>
+                            <option value="Kelas 7.4">Kelas 7.4</option>
+                            <option value="Kelas 7.5">Kelas 7.5</option>
+                            <option value="Kelas 7.6">Kelas 7.6</option>
+                            <option value="Kelas 7.7">Kelas 7.7</option>
+                            <option value="Kelas 7.8">Kelas 7.8</option>
+                            <option value="Kelas 7.9">Kelas 7.9</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">LANJUT ➡️</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           3. MENU UTAMA
+           ========================================================================== -->
+        <section id="view-menu" class="view-section">
+            <div class="card">
+                <h2>Selamat Datang, <span id="display-nama" style="color: var(--primary-color);">Siswa</span>! 👋</h2>
+                <p>Silakan pilih menu modul pembelajaran di bawah ini:</p>
+
+                <div class="menu-grid">
+                    <div class="menu-card" onclick="showView('view-tujuan')">
+                        <span class="icon">🎯</span>
+                        <h3>Tujuan Pembelajaran</h3>
+                    </div>
+                    <div class="menu-card" onclick="showView('view-materi')">
+                        <span class="icon">📚</span>
+                        <h3>Materi Pembelajaran</h3>
+                    </div>
+                    <div class="menu-card" onclick="showView('view-kenali')">
+                        <span class="icon">🔍</span>
+                        <h3>Kenali Jenis Puisi</h3>
+                    </div>
+                    <div class="menu-card" onclick="showView('view-unsur')">
+                        <span class="icon">🧩</span>
+                        <h3>Identifikasi Unsur</h3>
+                    </div>
+                    <div class="menu-card" onclick="showView('view-latihan')">
+                        <span class="icon">✏️</span>
+                        <h3>Latihan Interaktif</h3>
+                    </div>
+                    <div class="menu-card" onclick="startQuiz()">
+                        <span class="icon">🏆</span>
+                        <h3>Kuis Akhir</h3>
+                    </div>
+                    <div class="menu-card" onclick="showView('view-hasil')">
+                        <span class="icon">📊</span>
+                        <h3>Hasil Belajar</h3>
+                    </div>
+                    <div class="menu-card" onclick="bukaGoogleDocs()">
+                        <span class="icon">📄</span>
+                        <h3>Materi Google Docs</h3>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button class="btn btn-outline" onclick="showView('view-guru')">👨‍🏫 Panduan Guru & Integrasi Sheets</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TUJUAN PEMBELAJARAN -->
+        <section id="view-tujuan" class="view-section">
+            <div class="card">
+                <h2>🎯 Tujuan Pembelajaran</h2>
+                <p>Setelah menyelesaikan media interaktif ini, kamu diharapkan mampu:</p>
+                <ul style="margin: 15px 0 20px 20px; line-height: 2;">
+                    <li>Menjelaskan pengertian puisi rakyat dengan bahasa sendiri.</li>
+                    <li>Mengenali jenis-jenis puisi rakyat (Pantun, Syair, dan Gurindam).</li>
+                    <li>Mengidentifikasi ciri-ciri khusus dari Pantun, Syair, dan Gurindam.</li>
+                    <li>Menganalisis unsur puisi rakyat (jumlah baris, rima, sampiran-isi).</li>
+                    <li>Menentukan jenis serta unsur puisi dari contoh karya sastra secara tepat.</li>
+                    <li>Mengerjakan evaluasi mandiri dan mengukur pencapaian skor hasil belajar.</li>
+                </ul>
+                <button class="btn btn-primary" onclick="showView('view-menu')">⬅️ Kembali ke Menu</button>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           4. MATERI PEMBELAJARAN
+           ========================================================================== -->
+        <section id="view-materi" class="view-section">
+            <div class="card">
+                <h2>📚 Materi: Mengenal Puisi Rakyat</h2>
+
+                <h3 style="margin-top: 20px; color: var(--primary-color);">A. Pengertian Puisi Rakyat</h3>
+                <p>Puisi rakyat adalah warisan sastra lisan nenek moyang yang terikat oleh aturan-aturan tertentu (seperti jumlah baris, suku kata, rima, dan irama) serta mengandung nilai moral, agama, dan nasehat kehidupan.</p>
+
+                <h3 style="margin-top: 20px; color: var(--primary-color);">B. Pantun</h3>
+                <p>Puisi rakyat Melayu yang bertujuan melatih pemikiran kritis dan melestarikan nasehat.</p>
+                <div class="puisi-box">
+                    Baris 1: Pohon jati tumbuh berduri,<br>
+                    Baris 2: Tempat hinggap burung merpati.<br>
+                    Baris 3: Tuntutlah ilmu setiap hari,<br>
+                    Baris 4: Untuk bekal di masa nanti.
+                </div>
+
+                <h3 style="margin-top: 20px; color: var(--primary-color);">C. Syair</h3>
+                <p>Puisi rakyat yang berasal dari Arab, berisi kisah, nasehat, atau ajaran. Seluruh barisnya merupakan isi.</p>
+                <div class="puisi-box">
+                    Baris 1: Belajarlah engkau wahai ananda,<br>
+                    Baris 2: Budi pekerti harus dijaga,<br>
+                    Baris 3: Agar hidupmu selalu bahagia,<br>
+                    Baris 4: Selamat dunia hingga surga.
+                </div>
+
+                <h3 style="margin-top: 20px; color: var(--primary-color);">D. Gurindam</h3>
+                <p>Puisi rakyat yang berasal dari India, terdiri dari 2 baris yang memiliki hubungan sebab-akibat.</p>
+                <div class="puisi-box">
+                    Baris 1: Barang siapa mengenal diri,<br>
+                    Baris 2: Maka telah mengenal Tuhan yang bahri.
+                </div>
+
+                <h3 style="margin-top: 20px; color: var(--primary-color);">E. Matriks Ringkasan Unsur</h3>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Jenis Puisi</th>
+                                <th>Baris/Bait</th>
+                                <th>Pola Rima</th>
+                                <th>Struktur Baris</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Pantun</b></td>
+                                <td>4 Baris</td>
+                                <td>a-b-a-b</td>
+                                <td>Baris 1-2: Sampiran | Baris 3-4: Isi</td>
+                            </tr>
+                            <tr>
+                                <td><b>Syair</b></td>
+                                <td>4 Baris</td>
+                                <td>a-a-a-a</td>
+                                <td>Semua baris (1-4) adalah Isi</td>
+                            </tr>
+                            <tr>
+                                <td><b>Gurindam</b></td>
+                                <td>2 Baris</td>
+                                <td>a-a</td>
+                                <td>Baris 1: Soal/Syarat | Baris 2: Jawaban/Sebab-Akibat</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="showView('view-kenali')">Lanjut: Kenali Jenis ➡️</button>
+                    <button class="btn btn-outline" onclick="showView('view-menu')">⬅️ Menu Utama</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           5. FITUR: KENALI JENIS PUISI RAKYAT
+           ========================================================================== -->
+        <section id="view-kenali" class="view-section">
+            <div class="card">
+                <h2>🔍 Kenali Jenis Puisi Rakyat</h2>
+                <p>Bacalah puisi di bawah ini, lalu tebak jenis puisi rakyat yang tepat!</p>
+
+                <div id="kenali-container">
+                    <!-- Dynamic Content Generated by JS -->
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="showView('view-menu')">⬅️ Menu Utama</button>
+                    <button class="btn btn-primary" onclick="showView('view-unsur')">Fitur Selanjutnya: Identifikasi Unsur ➡️</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           6. FITUR: IDENTIFIKASI UNSUR
+           ========================================================================== -->
+        <section id="view-unsur" class="view-section">
+            <div class="card">
+                <h2>🧩 Identifikasi Unsur Puisi Rakyat</h2>
+                <p>Analisislah contoh puisi di bawah ini secara mendalam!</p>
+
+                <div class="puisi-box" style="font-size: 1.1rem; line-height: 2;">
+                    Ke hulu membuat pagar,<br>
+                    Jangan terpotong batang durian.<br>
+                    Cari guru tempat belajar,<br>
+                    Supaya jangan menyesal kemudian.
+                </div>
+
+                <div id="unsur-questions">
+                    <!-- Interactive Elements Generated by JS -->
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline" onclick="showView('view-menu')">⬅️ Menu Utama</button>
+                    <button class="btn btn-primary" onclick="showView('view-latihan')">Lanjut ke Latihan Soal ➡️</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           7. LATIHAN INTERAKTIF (10 SOAL)
+           ========================================================================== -->
+        <section id="view-latihan" class="view-section">
+            <div class="card">
+                <h2>✏️ Latihan Soal Interaktif</h2>
+                <p style="margin-bottom: 15px;">Soal <span id="lat-num">1</span> dari 10</p>
+
+                <div id="latihan-container">
+                    <!-- Exercise Content via JS -->
+                </div>
+
+                <div class="feedback-box" id="latihan-feedback"></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="btn-next-latihan" onclick="nextLatihan()" style="display: none;">Soal Berikutnya ➡️</button>
+                    <button class="btn btn-outline" onclick="showView('view-menu')">⬅️ Menu Utama</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           8. KUIS AKHIR (15 SOAL ACAK & TIMER)
+           ========================================================================== -->
+        <section id="view-kuis" class="view-section">
+            <div class="card">
+                <div class="quiz-header">
+                    <span>Soal <b id="quiz-current-num">1</b> / 15</span>
+                    <span class="timer">⏱️ Sisa Waktu: <span id="quiz-timer">15:00</span></span>
+                </div>
+
+                <h3 id="quiz-question-text" style="margin-bottom: 20px;">Pertanyaan kuis akan dimuat di sini...</h3>
+                <div class="options-container" id="quiz-options-container"></div>
+
+                <div class="btn-group" style="margin-top: 25px;">
+                    <button class="btn btn-primary" onclick="submitQuizAnswer()">Jawab & Lanjut ➡️</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           9. HASIL BELAJAR & PENILAIAN
+           ========================================================================== -->
+        <section id="view-hasil" class="view-section">
+            <div class="card" style="text-align: center;">
+                <h2>📊 Laporan Hasil Belajar</h2>
+                <p>Berikut adalah rekapan hasil evaluasi kuis kamu:</p>
+
+                <div class="score-badge" id="res-score">0</div>
+                <div style="margin-bottom: 20px;"><span class="category-badge" id="res-category">Perlu Belajar</span></div>
+
+                <table style="max-width: 500px; margin: 0 auto 20px auto;">
+                    <tr>
+                        <td><b>Nama Siswa</b></td>
+                        <td id="res-nama">-</td>
+                    </tr>
+                    <tr>
+                        <td><b>Kelas</b></td>
+                        <td id="res-kelas">-</td>
+                    </tr>
+                    <tr>
+                        <td><b>Jawaban Benar</b></td>
+                        <td id="res-benar" style="color: var(--success-color); font-weight: bold;">0</td>
+                    </tr>
+                    <tr>
+                        <td><b>Jawaban Salah</b></td>
+                        <td id="res-salah" style="color: var(--danger-color); font-weight: bold;">0</td>
+                    </tr>
+                    <tr>
+                        <td><b>Persentase Kelulusan</b></td>
+                        <td id="res-persen">0%</td>
+                    </tr>
+                    <tr>
+                        <td><b>Waktu Pengerjaan</b></td>
+                        <td id="res-waktu">00:00</td>
+                    </tr>
+                </table>
+
+                <div class="btn-group" style="justify-content: center;">
+                    <button class="btn btn-primary" onclick="startQuiz()">🔄 Ulangi Kuis</button>
+                    <button class="btn btn-secondary" onclick="window.print()">🖨️ Cetak Hasil</button>
+                    <button class="btn btn-outline" onclick="kirimKeGoogleSheets()">☁️ Kirim Hasil ke Guru</button>
+                    <button class="btn btn-outline" onclick="showView('view-menu')">🏠 Kembali ke Menu</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+           12. DASHBOARD GURU & INTEGRASI SPREADSHEET
+           ========================================================================== -->
+        <section id="view-guru" class="view-section">
+            <div class="card">
+                <h2>👨‍🏫 Panduan Integrasi Google Sheets & Docs (Guru)</h2>
+                <p style="margin-bottom: 15px;">Ikuti langkah-langkah di bawah ini untuk menghubungkan media interaktif ke Google Spreadsheet milik Anda:</p>
+
+                <ol style="margin-left: 20px; line-height: 1.8;">
+                    <li>Buat Spreadsheet baru di <b>Google Drive</b> Anda.</li>
+                    <li>Buka menu <b>Ekstensi</b> ➡️ <b>Apps Script</b>.</li>
+                    <li>Hapus semua kode lama, lalu *copy-paste* kode Google Apps Script yang disiapkan di bawah.</li>
+                    <li>Klik <b>Terapkan (Deploy)</b> ➡️ <b>Terapkan sebagai Apl Web (Web App)</b>.</li>
+                    <li>Atur akses ke: <b>"Siapa saja" (Anyone)</b>.</li>
+                    <li>Salin <b>URL Web App</b> yang dihasilkan dan tempelkan pada variabel <code>GOOGLE_APPS_SCRIPT_URL</code> di dalam kode HTML ini.</li>
+                </ol>
+
+                <h3 style="margin-top: 20px; color: var(--primary-color);">Status Konfigurasi Web:</h3>
+                <p>URL Google Apps Script: <br><code id="cfg-script-status" style="background:#edf2f7; padding:4px 8px; border-radius:4px;">Belum Diatur</code></p>
+                <p style="margin-top: 10px;">URL Google Docs Materi: <br><code id="cfg-docs-status" style="background:#edf2f7; padding:4px 8px; border-radius:4px;">Belum Diatur</code></p>
+
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="showView('view-menu')">⬅️ Kembali ke Menu Utama</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==========================================================================
+       10. SCRIPT JAVASCRIPT UTAMA
+       ========================================================================== -->
+    <script>
+        /* ==========================================================================
+           KONFIGURASI INTEGRASI GOOGLE APPS SCRIPT & GOOGLE DOCS (DAPAT DIEDIT GURU)
+           ========================================================================== */
+        const GOOGLE_APPS_SCRIPT_URL = "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_DI_SINI";
+        const GOOGLE_DOCS_URL = "MASUKKAN_LINK_GOOGLE_DOCS_DI_SINI";
+
+        // Variable Global State
+        let audioMuted = false;
+        let activeStudent = { nama: "", kelas: "" };
+        let quizTimerInterval = null;
+        let quizTimeSeconds = 900; // 15 Menit
+        let currentQuizIndex = 0;
+        let selectedQuizOption = null;
+        let quizScore = 0;
+        let quizCorrectAnswers = 0;
+        let quizWrongAnswers = 0;
+        let shuffledQuizData = [];
+
+        /* ==========================================================================
+           AUDIO UTILS (WEB AUDIO API)
+           ========================================================================== */
+        function playSound(type) {
+            if (audioMuted) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, ctx.currentTime); // A3
+                    osc.frequency.setValueAtTime(196, ctx.currentTime + 0.15); // G3
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'win') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.15);
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.3); // G5
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.5);
+                }
+            } catch (e) {
+                console.log("Audio API tidak didukung atau diblokir.");
+            }
+        }
+
+        function toggleAudio() {
+            audioMuted = !audioMuted;
+            document.getElementById('audio-status').innerText = audioMuted ? "OFF" : "ON";
+        }
+
+        /* ==========================================================================
+           VIEW NAVIGATION & LOCAL STORAGE MANAGEMENT
+           ========================================================================== */
+        function showView(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(viewId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+            updateProgressBar(viewId);
+        }
+
+        function updateProgressBar(viewId) {
+            const steps = {
+                'view-pembuka': 0,
+                'view-identitas': 10,
+                'view-menu': 25,
+                'view-tujuan': 35,
+                'view-materi': 50,
+                'view-kenali': 65,
+                'view-unsur': 75,
+                'view-latihan': 85,
+                'view-kuis': 95,
+                'view-hasil': 100
+            };
+            const p = steps[viewId] || 0;
+            document.getElementById('main-progress').style.width = p + '%';
+        }
+
+        function simpanIdentitas(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama-siswa').value.trim();
+            const kelas = document.getElementById('kelas-siswa').value;
+
+            if (nama && kelas) {
+                activeStudent = { nama, kelas };
+                localStorage.setItem('siswa_puisi_rakyat', JSON.stringify(activeStudent));
+                document.getElementById('display-nama').innerText = nama;
+                showView('view-menu');
+            }
+        }
+
+        function loadSavedStudent() {
+            const saved = localStorage.getItem('siswa_puisi_rakyat');
+            if (saved) {
+                activeStudent = JSON.parse(saved);
+                document.getElementById('nama-siswa').value = activeStudent.nama;
+                document.getElementById('kelas-siswa').value = activeStudent.kelas;
+                document.getElementById('display-nama').innerText = activeStudent.nama;
+            }
+        }
+
+        function bukaGoogleDocs() {
+            if (GOOGLE_DOCS_URL && GOOGLE_DOCS_URL !== "MASUKKAN_LINK_GOOGLE_DOCS_DI_SINI") {
+                window.open(GOOGLE_DOCS_URL, '_blank');
+            } else {
+                alert("URL Google Docs belum diatur oleh guru.");
+            }
+        }
+
+        /* ==========================================================================
+           DATA FITUR 1: KENALI JENIS PUISI
+           ========================================================================== */
+        const dataKenali = [
+            {
+                puisi: "Pergi berlayar ke pulau Buru,<br>Membawa bekal buah kelapa.<br>Hormatilah olehmu akan guru,<br>Agar ilmu berkah berguna.",
+                jawaban: "Pantun",
+                alasan: "Puisi ini terdiri dari 4 baris, memiliki rima bersilang (a-b-a-b), baris 1-2 berupa sampiran, dan baris 3-4 berisi amanat/nasehat."
+            },
+            {
+                puisi: "Jika hendak mengenal orang berbangsa,<br>Lihatlah kepada budi dan bahasa.",
+                jawaban: "Gurindam",
+                alasan: "Terdiri dari 2 baris dalam satu bait, berima a-a, serta memiliki hubungan sebab-akibat antara baris pertama dan kedua."
+            },
+            {
+                puisi: "Wahai muda kenali diri,<br>Ialah perahu tamsil tubuhmu,<br>Tiadalah berapa lama hidupmu,<br>Ke akhirat jua kekal dirimu.",
+                jawaban: "Syair",
+                alasan: "Terdiri dari 4 baris per bait, berirama sama (a-a-a-a), dan seluruh barisnya mengandung isi kisah/nasehat."
+            }
+        ];
+
+        function renderKenali() {
+            const container = document.getElementById('kenali-container');
+            container.innerHTML = dataKenali.map((item, idx) => `
+                <div style="margin-bottom: 25px; border-bottom: 1px solid #E2E8F0; padding-bottom: 20px;">
+                    <div class="puisi-box">${item.puisi}</div>
+                    <p style="font-weight:600; margin-bottom:8px;">Pilihlah Jenis Puisi Rakyat yang Tepat:</p>
+                    <div class="btn-group">
+                        <button class="btn btn-outline" onclick="checkKenali(${idx}, 'Pantun', this)">Pantun</button>
+                        <button class="btn btn-outline" onclick="checkKenali(${idx}, 'Syair', this)">Syair</button>
+                        <button class="btn btn-outline" onclick="checkKenali(${idx}, 'Gurindam', this)">Gurindam</button>
+                    </div>
+                    <div id="kenali-fb-${idx}" class="feedback-box"></div>
+                </div>
+            `).join('');
+        }
+
+        function checkKenali(idx, pilihan, btn) {
+            const item = dataKenali[idx];
+            const fb = document.getElementById(`kenali-fb-${idx}`);
+            fb.style.display = "block";
+
+            if (pilihan === item.jawaban) {
+                playSound('correct');
+                fb.className = "feedback-box correct";
+                fb.innerHTML = `<b>✅ Tepat Sekali!</b> Jawaban Anda benar (${item.jawaban}).<br><i>Penjelasan:</i> ${item.alasan}`;
+            } else {
+                playSound('wrong');
+                fb.className = "feedback-box wrong";
+                fb.innerHTML = `<b>❌ Kurang Tepat.</b> Jawaban yang benar adalah <b>${item.jawaban}</b>.<br><i>Penjelasan:</i> ${item.alasan}`;
+            }
+        }
+
+        /* ==========================================================================
+           DATA FITUR 2: IDENTIFIKASI UNSUR
+           ========================================================================== */
+        function renderUnsur() {
+            const container = document.getElementById('unsur-questions');
+            container.innerHTML = `
+                <div class="form-group" style="margin-top:20px;">
+                    <label>1. Berapakah jumlah baris pada puisi di atas?</label>
+                    <div class="options-container">
+                        <button class="option-btn" onclick="checkUnsur(this, true, 'Benar, puisi di atas terdiri dari 4 baris dalam satu bait.')">4 Baris</button>
+                        <button class="option-btn" onclick="checkUnsur(this, false, 'Salah, hitung kembali jumlah barisnya.')">2 Baris</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2. Bagaimanakah pola rima akhir pada puisi tersebut?</label>
+                    <div class="options-container">
+                        <button class="option-btn" onclick="checkUnsur(this, false, 'Salah. Perhatikan rima baris 1-3 (gar-gar) dan 2-4 (rian-dian).')">a-a-a-a</button>
+                        <button class="option-btn" onclick="checkUnsur(this, true, 'Tepat! Baris 1 berima dengan baris 3 (-gar), baris 2 berima dengan baris 4 (-ian). Polanya a-b-a-b.')">a-b-a-b</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3. Baris manakah yang berfungsi sebagai sampiran?</label>
+                    <div class="options-container">
+                        <button class="option-btn" onclick="checkUnsur(this, true, 'Benar! Pada pantun, baris 1 dan 2 adalah sampiran.')">Baris 1 dan 2</button>
+                        <button class="option-btn" onclick="checkUnsur(this, false, 'Salah. Baris 3 dan 4 adalah isi pantun.')">Baris 3 dan 4</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkUnsur(btn, isCorrect, msg) {
+            const parent = btn.parentElement;
+            Array.from(parent.children).forEach(b => b.className = "option-btn");
+            if (isCorrect) {
+                playSound('correct');
+                btn.classList.add('correct');
+                alert("✅ Benar!\n" + msg);
+            } else {
+                playSound('wrong');
+                btn.classList.add('wrong');
+                alert("❌ Kurang Tepat.\n" + msg);
+            }
+        }
+
+        /* ==========================================================================
+           DATA FITUR 3: LATIHAN INTERAKTIF (10 SOAL)
+           ========================================================================== */
+        const dataLatihan = [
+            {
+                q: "Puisi rakyat yang terdiri atas 2 baris dalam satu bait dan berisi sebab-akibat disebut...",
+                opt: ["Pantun", "Syair", "Gurindam", "Talibun"],
+                ans: 2,
+                exp: "Gurindam berisikan 2 baris per bait dengan rima a-a yang menyatakan hubungan sebab-akibat."
+            },
+            {
+                q: "Pola rima akhir yang menjadi ciri khas syair adalah...",
+                opt: ["a-b-a-b", "a-a-a-a", "a-a-b-b", "a-b-b-a"],
+                ans: 1,
+                exp: "Syair selalu menggunakan rima sama/sejajar yaitu a-a-a-a pada setiap baitnya."
+            },
+            {
+                q: "Baris pertama dan kedua pada pantun dinamakan...",
+                opt: ["Isi", "Sampiran", "Amanat", "Sebab"],
+                ans: 1,
+                exp: "Dua baris awal pantun dinamakan sampiran untuk mengantarkan rima dan bayangan."
+            },
+            {
+                q: "Semua baris dalam syair merupakan...",
+                opt: ["Sampiran", "Isi", "Sebab-akibat", "Rima pasif"],
+                ans: 1,
+                exp: "Tidak seperti pantun, dalam syair seluruh baris (1-4) adalah isi pesan."
+            },
+            {
+                q: "Jumlah suku kata yang ideal pada setiap baris pantun adalah...",
+                opt: ["4-6 suku kata", "8-12 suku kata", "15-20 suku kata", "2-4 suku kata"],
+                ans: 1,
+                exp: "Aturan umum puisi rakyat Melayu/Pantun adalah 8 sampai 12 suku kata per baris."
+            },
+            {
+                q: "Benar atau Salah: Gurindam memiliki sampiran pada baris pertama.",
+                opt: ["Benar", "Salah"],
+                ans: 1,
+                exp: "Salah. Gurindam tidak memiliki sampiran. Baris pertama berisi syarat/soal dan baris kedua berisi jawaban/akibat."
+            },
+            {
+                q: "Perhatikan baris: 'Jika hendak mengenal orang yang berilmu, / Bertanya dan belajar tiada jemu.' Ini adalah...",
+                opt: ["Gurindam", "Pantun", "Syair", "Mantra"],
+                ans: 0,
+                exp: "Bait tersebut terdiri dari 2 baris berima sama dan memuat ajaran moral (Gurindam)."
+            },
+            {
+                q: "Tujuan utama pengarang menyusun sampiran dalam pantun adalah...",
+                opt: ["Menyampaikan pesan inti", "Meyediakan pembayang rima", "Mengisi ruang kosong", "Menjelaskan sebab"],
+                ans: 1,
+                exp: "Sampiran berfungsi menyiapkan pancingan bunyi/rima sebelum menyampaikan isi."
+            },
+            {
+                q: "Persamaan antara Pantun dan Syair terletak pada...",
+                opt: ["Jumlah baris per bait (4 baris)", "Pola rimanya", "Adanya sampiran", "Asal usul negerinya"],
+                ans: 0,
+                exp: "Pantun dan Syair sama-sama memiliki struktur standar 4 baris dalam setiap baitnya."
+            },
+            {
+                q: "Berdasarkan isinya, pantun yang berisi ajaran kebaikan dan ajakan berbuat baik disebut...",
+                opt: ["Pantun Jenaka", "Pantun Nasihat", "Pantun Teka-teki", "Pantun Sukacita"],
+                ans: 1,
+                exp: "Pantun yang membawa pesan kebaikan dan etika dikategorikan sebagai pantun nasihat."
+            }
+        ];
+
+        let currentLatihanIndex = 0;
+
+        function renderLatihan() {
+            const item = dataLatihan[currentLatihanIndex];
+            document.getElementById('lat-num').innerText = currentLatihanIndex + 1;
+            const container = document.getElementById('latihan-container');
+            const fb = document.getElementById('latihan-feedback');
+            fb.style.display = "none";
+            document.getElementById('btn-next-latihan').style.display = "none";
+
+            container.innerHTML = `
+                <h3 style="margin-bottom:15px;">${item.q}</h3>
+                <div class="options-container">
+                    ${item.opt.map((o, i) => `<button class="option-btn" onclick="checkLatihan(${i})">${o}</button>`).join('')}
+                </div>
+            `;
+        }
+
+        function checkLatihan(selected) {
+            const item = dataLatihan[currentLatihanIndex];
+            const fb = document.getElementById('latihan-feedback');
+            fb.style.display = "block";
+
+            if (selected === item.ans) {
+                playSound('correct');
+                fb.className = "feedback-box correct";
+                fb.innerHTML = `<b>✅ Benar!</b><br>${item.exp}`;
+            } else {
+                playSound('wrong');
+                fb.className = "feedback-box wrong";
+                fb.innerHTML = `<b>❌ Salah!</b> Jawaban benar: <b>${item.opt[item.ans]}</b>.<br>${item.exp}`;
+            }
+            document.getElementById('btn-next-latihan').style.display = "inline-block";
+        }
+
+        function nextLatihan() {
+            currentLatihanIndex++;
+            if (currentLatihanIndex < dataLatihan.length) {
+                renderLatihan();
+            } else {
+                alert("🎉 Selamat! Kamu telah menyelesaikan seluruh soal latihan.");
+                currentLatihanIndex = 0;
+                showView('view-menu');
+            }
+        }
+
+        /* ==========================================================================
+           8. BANK SOAL KUIS AKHIR (15 SOAL LENGKAP)
+           ========================================================================== */
+        const masterQuizData = [
+            {
+                q: "Puisi rakyat merupakan warisan sastra lisan yang terikat oleh...",
+                opt: ["Aturan jumlah baris, rima, dan suku kata", "Bebas tanpa aturan bait", "Jumlah halaman dokumen", "Penggunaan bahasa asing"],
+                ans: 0
+            },
+            {
+                q: "Puisi rakyat berupa 4 baris dengan pola rima bersilang a-b-a-b disebut...",
+                opt: ["Syair", "Pantun", "Gurindam", "Karmina"],
+                ans: 1
+            },
+            {
+                q: "Karya sastra puisi rakyat yang berasal dari tradisi Arab dan seluruh barisnya adalah isi yaitu...",
+                opt: ["Pantun", "Mantra", "Syair", "Gurindam"],
+                ans: 2
+            },
+            {
+                q: "Struktur puisi rakyat Gurindam terdiri dari berapa baris per bait?",
+                opt: ["2 Baris", "4 Baris", "6 Baris", "Bebas"],
+                ans: 0
+            },
+            {
+                q: "Perhatikan rima berikut: a-a-a-a. Rima ini merupakan ciri khas dari...",
+                opt: ["Pantun", "Syair", "Karmina", "Seloka"],
+                ans: 1
+            },
+            {
+                q: "Dalam struktur pantun, fungsi dari baris ke-3 dan ke-4 adalah sebagai...",
+                opt: ["Sampiran", "Isi / Pesan utama", "Pembayang bunyi", "Pengisi nada"],
+                ans: 1
+            },
+            {
+                q: "Berapa jumlah suku kata yang ideal dalam satu baris puisi rakyat?",
+                opt: ["4-6 suku kata", "8-12 suku kata", "14-18 suku kata", "10-20 suku kata"],
+                ans: 1
+            },
+            {
+                q: "Gurindam yang terkenal di Indonesia adalah 'Gurindam 12' karya dari...",
+                opt: ["Chairil Anwar", "Raja Ali Haji", "Taufiq Ismail", "Sutan Takdir"],
+                ans: 1
+            },
+            {
+                q: "Manakah di bawah ini yang merupakan ciri khusus dari Syair?",
+                opt: ["Baris 1 dan 2 adalah sampiran", "Berima a-b-a-b", "Semua baris memuat arti/isi", "Terdiri atas 2 baris saja"],
+                ans: 2
+            },
+            {
+                q: "Ciri utama dari baris pertama pada Gurindam adalah berisi...",
+                opt: ["Akibat atau jawaban", "Syarat, masalah, atau soal", "Sampiran pelengkap", "Pesan hiburan"],
+                ans: 1
+            },
+            {
+                q: "Perhatikan bait: 'Pohon sirih pohon pinang, / Tumbuh rapat di dekat perigi. / Hati teguh dada lapang, / Pasti sukses di kemudian hari.' Jenis puisi ini adalah...",
+                opt: ["Pantun", "Syair", "Gurindam", "Bidal"],
+                ans: 0
+            },
+            {
+                q: "Apakah perbedaan mendasar antara Pantun dan Syair?",
+                opt: ["Pantun 4 baris, Syair 2 baris", "Pantun memiliki sampiran, Syair semuanya isi", "Syair berima a-b-a-b, Pantun a-a-a-a", "Tidak ada perbedaan"],
+                ans: 1
+            },
+            {
+                q: "Pernyataan yang BENAR mengenai sampiran adalah...",
+                opt: ["Mengandung pesan inti pengarang", "Berada di baris akhir bait", "Menyiapkan rima dan tidak berhubungan langsung dengan isi", "Selalu terdiri dari kalimat perintah"],
+                ans: 2
+            },
+            {
+                q: "Bila hendak mengenal orang mulia, / Lihatlah kepada kelakuan dia. Puisi rakyat ini tergolong...",
+                opt: ["Gurindam", "Syair", "Pantun", "Talibun"],
+                ans: 0
+            },
+            {
+                q: "Tujuan utama dipelajarinya puisi rakyat dalam Kurikulum Merdeka adalah...",
+                opt: ["Mengenal budaya modern", "Mengambil nilai moral dan melestarikan warisan budaya", "Menghafal tulisan kuno", "Memenuhi syarat ujian saja"],
+                ans: 1
+            }
+        ];
+
+        /* Utility Fisher-Yates Shuffle */
+        function shuffleArray(arr) {
+            let array = [...arr];
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            if (!activeStudent.nama) {
+                alert("Silakan isi nama dan kelas terlebih dahulu!");
+                showView('view-identitas');
+                return;
+            }
+
+            // Shuffle Soal & Reset State
+            shuffledQuizData = shuffleArray(masterQuizData).map(item => {
+                const shuffledOpt = shuffleArray(item.opt);
+                return {
+                    q: item.q,
+                    opt: shuffledOpt,
+                    ans: shuffledOpt.indexOf(item.opt[item.ans])
+                };
+            });
+
+            currentQuizIndex = 0;
+            quizScore = 0;
+            quizCorrectAnswers = 0;
+            quizWrongAnswers = 0;
+            quizTimeSeconds = 900;
+
+            showView('view-kuis');
+            renderQuizQuestion();
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(quizTimerInterval);
+            quizTimerInterval = setInterval(() => {
+                quizTimeSeconds--;
+                const m = Math.floor(quizTimeSeconds / 60).toString().padStart(2, '0');
+                const s = (quizTimeSeconds % 60).toString().padStart(2, '0');
+                document.getElementById('quiz-timer').innerText = `${m}:${s}`;
+
+                if (quizTimeSeconds <= 0) {
+                    clearInterval(quizTimerInterval);
+                    alert("⏱️ Waktu pengerjaan kuis telah habis!");
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function renderQuizQuestion() {
+            const item = shuffledQuizData[currentQuizIndex];
+            selectedQuizOption = null;
+
+            document.getElementById('quiz-current-num').innerText = currentQuizIndex + 1;
+            document.getElementById('quiz-question-text').innerText = item.q;
+
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = item.opt.map((o, idx) => `
+                <button class="option-btn" onclick="selectQuizOption(${idx}, this)">
+                    ${String.fromCharCode(65 + idx)}. ${o}
+                </button>
+            `).join('');
+        }
+
+        function selectQuizOption(idx, btn) {
+            selectedQuizOption = idx;
+            const parent = btn.parentElement;
+            Array.from(parent.children).forEach(b => b.style.borderColor = "#E2E8F0");
+            btn.style.borderColor = "var(--primary-color)";
+            btn.style.backgroundColor = "#EBF8FF";
+        }
+
+        function submitQuizAnswer() {
+            if (selectedQuizOption === null) {
+                alert("Silakan pilih salah satu jawaban!");
+                return;
+            }
+
+            const item = shuffledQuizData[currentQuizIndex];
+            if (selectedQuizOption === item.ans) {
+                quizCorrectAnswers++;
+            } else {
+                quizWrongAnswers++;
+            }
+
+            currentQuizIndex++;
+            if (currentQuizIndex < shuffledQuizData.length) {
+                renderQuizQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            clearInterval(quizTimerInterval);
+            quizScore = Math.round((quizCorrectAnswers / shuffledQuizData.length) * 100);
+
+            let category = "";
+            if (quizScore >= 90) category = "Sangat Baik 🏆";
+            else if (quizScore >= 80) category = "Baik 👍";
+            else if (quizScore >= 70) category = "Cukup 👏";
+            else category = "Perlu Belajar Lagi 📚";
+
+            if (quizScore >= 80) playSound('win');
+
+            const usedTime = 900 - quizTimeSeconds;
+            const timeFormatted = `${Math.floor(usedTime / 60)} mnt ${usedTime % 60} dtk`;
+
+            document.getElementById('res-score').innerText = quizScore;
+            document.getElementById('res-category').innerText = category;
+            document.getElementById('res-nama').innerText = activeStudent.nama;
+            document.getElementById('res-kelas').innerText = activeStudent.kelas;
+            document.getElementById('res-benar').innerText = quizCorrectAnswers;
+            document.getElementById('res-salah').innerText = quizWrongAnswers;
+            document.getElementById('res-persen').innerText = quizScore + "%";
+            document.getElementById('res-waktu').innerText = timeFormatted;
+
+            showView('view-hasil');
+        }
+
+        /* ==========================================================================
+           10. METODE FETCH KIRIM DATA KE GOOGLE APPS SCRIPT
+           ========================================================================== */
+        function kirimKeGoogleSheets() {
+            if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL === "MASUKKAN_URL_GOOGLE_APPS_SCRIPT_DI_SINI") {
+                alert("Hasil tetap tersimpan di perangkat. Hubungkan Google Spreadsheet untuk mengirim hasil kepada guru.");
+                return;
+            }
+
+            const payload = {
+                timestamp: new Date().toLocaleString("id-ID"),
+                nama: activeStudent.nama,
+                kelas: activeStudent.kelas,
+                nilai: quizScore,
+                benar: quizCorrectAnswers,
+                salah: quizWrongAnswers,
+                persentase: quizScore + "%",
+                kategori: document.getElementById('res-category').innerText,
+                waktu: document.getElementById('res-waktu').innerText
+            };
+
+            fetch(GOOGLE_APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => alert("✅ Data hasil kuis berhasil dikirimkan ke Spreadsheet Guru!"))
+            .catch(err => alert("⚠️ Gagal mengirim data: " + err));
+        }
+
+        /* ==========================================================================
+           INITIALIZATION
+           ========================================================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSavedStudent();
+            renderKenali();
+            renderUnsur();
+            renderLatihan();
+
+            // Status Konfigurasi Guru
+            document.getElementById('cfg-script-status').innerText = GOOGLE_APPS_SCRIPT_URL;
+            document.getElementById('cfg-docs-status').innerText = GOOGLE_DOCS_URL;
+        });
+    </script>
+</body>
+</html>
